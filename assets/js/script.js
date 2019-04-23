@@ -24,7 +24,7 @@ let createSphere = function() {
 
 let createTorus = function() {
     let geometryA = new THREE.TorusGeometry(5, 5, 100, 100);
-    let geometryB = new THREE.TorusGeometry(2, 2, 50, 50);
+    let geometryB = new THREE.TorusGeometry(10, 10, 200, 200);
     let materialA = new THREE.MeshNormalMaterial({wireframe: true});
     let materialB = new THREE.MeshNormalMaterial({wireframe: true});
     torusA = new THREE.Mesh(geometryA, materialA);
@@ -84,11 +84,11 @@ let loop = function() {
     // torusB movement
     torusB.position.x += gamma / 10;
     torusB.position.y += -gamma / 10;
-    torusB.position.z += gamma;
+    torusB.position.z += gamma * 0.5;
 
-    torusB.rotation.x += -gamma * 0.5;
-    torusB.rotation.y += 0.1;
-    torusB.rotation.z += 0.5;
+    torusB.rotation.x += -gamma;
+    torusB.rotation.y += -0.01;
+    torusB.rotation.z += 0.01;
 
     // sphereA movement
     sphereA.position.x += -theta;
