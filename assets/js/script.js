@@ -6,7 +6,7 @@ let theta = 0.01;
 let gamma = 0.05;
 
 let createCube = function() {
-    let geometry = new THREE.BoxGeometry(1, 1, 1);
+    let geometry = new THREE.BoxGeometry(0.5, 1, 2);
     let material = new THREE.MeshNormalMaterial();
     cubeA = new THREE.Mesh(geometry, material);
     cubeB = new THREE.Mesh(geometry, material);
@@ -15,7 +15,7 @@ let createCube = function() {
 }
 
 let createSphere = function() {
-    let geometry = new THREE.SphereGeometry(0.5, 10, 10);
+    let geometry = new THREE.SphereGeometry(0.8, 50, 50);
     let material = new THREE.MeshNormalMaterial({wireframe: true});
     sphereA = new THREE.Mesh(geometry, material);
     sphereB = new THREE.Mesh(geometry, material);
@@ -23,8 +23,8 @@ let createSphere = function() {
 }
 
 let createTorus = function() {
-    let geometryA = new THREE.TorusGeometry(5, 5, 100, 100);
-    let geometryB = new THREE.TorusGeometry(10, 10, 200, 200);
+    let geometryA = new THREE.TorusGeometry(2, 2, 200, 3);
+    let geometryB = new THREE.TorusGeometry(10.6, 10, 200, 200);
     let materialA = new THREE.MeshNormalMaterial({wireframe: true});
     let materialB = new THREE.MeshNormalMaterial({wireframe: true});
     torusA = new THREE.Mesh(geometryA, materialA);
