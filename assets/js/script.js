@@ -1,6 +1,7 @@
-let scene, camera, renderer, cubeA, cubeB, cubeC;
+// declare variables and functions
+let scene, camera, renderer, cubeA, cubeB, cubeC, sphereA;
 let delta = 0.01;
-let theta = 0.02;
+let theta = 0.01;
 let gamma = 0.05;
 
 let createCube = function() {
@@ -11,8 +12,23 @@ let createCube = function() {
     cubeC = new THREE.Mesh(geometry, material);
     scene.add(cubeA, cubeB, cubeC);
 }
+
+let createSphere = function() {
+    let geometry = new THREE.SphereGeometry(0.5, 20, 20);
+    let material = new THREE.MeshNormalMaterial();
+    sphereA = new THREE.Mesh(geometry, material);
+    scene.add(sphereA);
+}
+
+let axesHelper = function() {
+    let axes = new THREE.AxesHelper(5);
+    scene.add(axes);
+}
+
+// -----------------------------------------------------------------------------------*
 // setup of the environment
-// initalize the scene, camera objects and renderer
+
+// INITIALIZE THE SCENE
 let init = function() {
     // create the scene
     scene = new THREE.Scene();
@@ -26,10 +42,13 @@ let init = function() {
         1000
     );
     camera.position.z = 10;
-
+    
+    // axesHelper();
 
     // call the createCube function
     createCube();
+    // calll the createSphere function
+    createSphere();
 
     // create and set the size of the renderer
     renderer = new THREE.WebGLRenderer();
@@ -39,17 +58,26 @@ let init = function() {
     document.body.appendChild(renderer.domElement);
 }
 
-// function to run the main animation loop
+// MAIN ANIMATION LOOP
 let loop = function() {
+    // sphereA movement
+    sphereA.position.x += -theta;
+    sphereA.position.y += gamma;
+    sphereA.position.z += delta;
+
     // cubeA movement
     cubeA.position.x += delta;
     cubeA.position.y -= theta;
+    cubeA.position.z += gamma;
 
     if (cubeA.position.x <= -2 || cubeA.position.x >= 2) {
         delta *= -1;
     }
     if (cubeA.position.y <= -2 || cubeA.position.y >= 2) {
         theta *= -1;
+    }
+    if (cubeA.position.z <= -2 || cubeA.position.z >= 2) {
+        gamma *= -1;
     }
 
     cubeA.rotation.x += delta;
@@ -59,13 +87,7 @@ let loop = function() {
     // cubeB movement
     cubeB.position.x += -delta;
     cubeB.position.y -= -theta;
-
-    if (cubeB.position.x <= -2 || cubeB.position.x >= 2) {
-        delta *= -1;
-    }
-    if (cubeB.position.y <= -2 || cubeB.position.y >= 2) {
-        theta *= -1;
-    }
+    cubeB.position.z -= -theta;
 
     cubeB.rotation.x += delta;
     cubeB.rotation.y += theta;
@@ -74,13 +96,7 @@ let loop = function() {
     // cubeC movement
     cubeC.position.x += delta;
     cubeC.position.y -= -theta;
-
-    if (cubeC.position.x <= -2 || cubeC.position.x >= 2) {
-        delta *= -1;
-    }
-    if (cubeC.position.y <= -2 || cubeC.position.y >= 2) {
-        theta *= -1;
-    }
+    cubeC.position.z -= delta * (Math.PI/2);
 
     cubeC.rotation.x += -delta;
     cubeC.rotation.y += -theta;
@@ -90,6 +106,7 @@ let loop = function() {
     requestAnimationFrame(loop);
 }
 
+// -----------------------------------------------------------------------------------*
 // call the intial and main loop functions
 init();
 loop();
