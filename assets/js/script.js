@@ -1,5 +1,5 @@
 // declare variables and functions
-let scene, camera, renderer, cubeA, cubeB, cubeC, sphereA, sphereB, torus;
+let scene, camera, renderer, cubeA, cubeB, cubeC, sphereA, sphereB, torusA, torusB;
 let donuts = [];
 let delta = 0.01;
 let theta = 0.01;
@@ -23,10 +23,13 @@ let createSphere = function() {
 }
 
 let createTorus = function() {
-    let geometry = new THREE.TorusGeometry(5, 5, 100, 100);
-    let material = new THREE.MeshNormalMaterial({wireframe: true});
-    torus = new THREE.Mesh(geometry, material);
-    scene.add(torus);
+    let geometryA = new THREE.TorusGeometry(5, 5, 100, 100);
+    let geometryB = new THREE.TorusGeometry(2, 2, 50, 50);
+    let materialA = new THREE.MeshNormalMaterial({wireframe: true});
+    let materialB = new THREE.MeshNormalMaterial({wireframe: true});
+    torusA = new THREE.Mesh(geometryA, materialA);
+    torusB = new THREE.Mesh(geometryB, materialB);
+    scene.add(torusA, torusB);
 }
 
 let axesHelper = function() {
@@ -71,13 +74,21 @@ let init = function() {
 
 // MAIN ANIMATION LOOP
 let loop = function() {
-    // torus movement
-    torus.position.z += delta * 2;
+    // torusA movement
+    torusA.position.z += delta * 2;
 
-    torus.rotation.x += -0.01;
-    torus.rotation.y += gamma / 5;
-    torus.rotation.z += delta / 5;
+    torusA.rotation.x += -0.01;
+    torusA.rotation.y += gamma / 5;
+    torusA.rotation.z += delta / 5;
 
+    // torusB movement
+    torusB.position.x += gamma / 10;
+    torusB.position.y += -gamma / 10;
+    torusB.position.z += gamma;
+
+    torusB.rotation.x += -gamma * 0.5;
+    torusB.rotation.y += 0.1;
+    torusB.rotation.z += 0.5;
 
     // sphereA movement
     sphereA.position.x += -theta;
