@@ -1,5 +1,6 @@
 // declare variables and functions
-let scene, camera, renderer, cubeA, cubeB, cubeC, sphereA;
+let scene, camera, renderer, cubeA, cubeB, cubeC, sphereA, sphereB, torus;
+let donuts = [];
 let delta = 0.01;
 let theta = 0.01;
 let gamma = 0.05;
@@ -17,7 +18,15 @@ let createSphere = function() {
     let geometry = new THREE.SphereGeometry(0.5, 10, 10);
     let material = new THREE.MeshNormalMaterial({wireframe: true});
     sphereA = new THREE.Mesh(geometry, material);
-    scene.add(sphereA);
+    sphereB = new THREE.Mesh(geometry, material);
+    scene.add(sphereA, sphereB);
+}
+
+let createTorus = function() {
+    let geometry = new THREE.TorusGeometry(5, 5, 50, 50);
+    let material = new THREE.MeshNormalMaterial({wireframe: true});
+    torus = new THREE.Mesh(geometry, material);
+    scene.add(torus);
 }
 
 let axesHelper = function() {
@@ -47,8 +56,10 @@ let init = function() {
 
     // call the createCube function
     createCube();
-    // calll the createSphere function
+    // call the createSphere function
     createSphere();
+    // call the createTorus function
+    createTorus();
 
     // create and set the size of the renderer
     renderer = new THREE.WebGLRenderer();
@@ -60,6 +71,14 @@ let init = function() {
 
 // MAIN ANIMATION LOOP
 let loop = function() {
+    // torus movement
+    torus.position.z += gamma;
+
+    torus.rotation.x += -0.01;
+    torus.rotation.y += gamma;
+    torus.rotation.z += delta;
+
+
     // sphereA movement
     sphereA.position.x += -theta;
     sphereA.position.y += gamma;
@@ -69,18 +88,27 @@ let loop = function() {
     sphereA.rotation.y += 0.05;
     sphereA.rotation.z += 0.05;
 
+    // sphereB movement
+    sphereB.position.x += delta;
+    sphereB.position.y += -gamma;
+    sphereB.position.z += -theta;
+
+    sphereB.rotation.x += -0.05;
+    sphereB.rotation.y += -0.05;
+    sphereB.rotation.z += -0.05;
+
     // cubeA movement
     cubeA.position.x += delta;
     cubeA.position.y -= theta;
     cubeA.position.z += gamma;
 
-    if (cubeA.position.x <= -2 || cubeA.position.x >= 2) {
+    if (cubeA.position.x <= -1 || cubeA.position.x >= 0.5) {
         delta *= -1;
     }
-    if (cubeA.position.y <= -2 || cubeA.position.y >= 2) {
+    if (cubeA.position.y <= -1 || cubeA.position.y >= 3) {
         theta *= -1;
     }
-    if (cubeA.position.z <= -2 || cubeA.position.z >= 2) {
+    if (cubeA.position.z <= -10 || cubeA.position.z >= 3) {
         gamma *= -1;
     }
 
