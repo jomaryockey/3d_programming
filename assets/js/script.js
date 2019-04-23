@@ -14,8 +14,8 @@ let createCube = function() {
 }
 
 let createSphere = function() {
-    let geometry = new THREE.SphereGeometry(0.5, 20, 20);
-    let material = new THREE.MeshNormalMaterial();
+    let geometry = new THREE.SphereGeometry(0.5, 10, 10);
+    let material = new THREE.MeshNormalMaterial({wireframe: true});
     sphereA = new THREE.Mesh(geometry, material);
     scene.add(sphereA);
 }
@@ -64,6 +64,10 @@ let loop = function() {
     sphereA.position.x += -theta;
     sphereA.position.y += gamma;
     sphereA.position.z += delta;
+
+    sphereA.rotation.x += 0.05;
+    sphereA.rotation.y += 0.05;
+    sphereA.rotation.z += 0.05;
 
     // cubeA movement
     cubeA.position.x += delta;
