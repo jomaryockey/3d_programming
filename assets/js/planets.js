@@ -13,7 +13,7 @@ let beta = 0.001;
 
 let createIco = function() {
     let geometryA = new THREE.IcosahedronGeometry(50, 6);
-    let geometryB = new THREE.IcosahedronGeometry(30, 5);
+    let geometryB = new THREE.IcosahedronGeometry(30, 2);
     let material = new THREE.MeshNormalMaterial({wireframe: true});
     ico1 = new THREE.Mesh(geometryA, material);
     ico2 = new THREE.Mesh(geometryB, material);
@@ -96,13 +96,13 @@ let loop = function() {
     ico1.rotation.z += beta;
 
     ico2.rotation.y += beta;
-    ico2.rotation.z -= beta;
+    ico2.rotation.z -= 0.01 + beta;
 
     planet.position.x += -delta;
     planet.position.y += -delta;
     
 
-    planet.rotation.x += 0.01;
+    planet.rotation.x += -0.02;
     planet.rotation.y += 0.02;
     planet.rotation.z += 0.01;
 
@@ -135,7 +135,7 @@ let loop = function() {
     }
     
     let random = Math.random();
-    if(random < 0.05) {
+    if(random < 0.025) {
         createDonut();
     }
 
