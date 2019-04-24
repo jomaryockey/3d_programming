@@ -1,5 +1,6 @@
 // declare variables and functions
-let scene, camera, renderer, cubeA, cubeB, cubeC, sphereA, sphereB, torusA, torusB;
+let scene, camera, renderer;
+let cubeA, cubeB, cubeC, sphereA, sphereB, torusA, torusB;
 let donuts = [];
 let delta = 0.01;
 let theta = 0.01;
@@ -145,6 +146,7 @@ let loop = function() {
     cubeC.rotation.y += -theta;
     cubeC.rotation.z += -gamma;
 
+    // render the scene
     renderer.render(scene, camera);
     requestAnimationFrame(loop);
 }
