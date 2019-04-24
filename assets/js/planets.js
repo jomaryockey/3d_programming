@@ -21,12 +21,13 @@ let createIco = function() {
 }
 
 let createSaturn = function() {
-    let geometry = new THREE.SphereGeometry(4, 30, 30);
-    let material = new THREE.MeshNormalMaterial();
+    let geometry = new THREE.SphereGeometry(3, 200, 2);
+    let material = new THREE.MeshNormalMaterial({wireframe: true});
     planet = new THREE.Mesh(geometry, material);
     scene.add(planet);
 
     geometry = new THREE.TorusGeometry(5.1, 0.7, 2, 500);
+    material = new THREE.MeshNormalMaterial();
     let ring = new THREE.Mesh(geometry, material);
     rings.push(ring);
 
